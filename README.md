@@ -7,7 +7,7 @@ For more information on Vertex AI models, refer to the [official documentation](
 ## Supported Models
 
 - **Gemini 1.5 Pro**
-- **Chat Bison 2**
+- **PaLM 2 Chat Bison**
 
 ## Setting Up Your GCP Project
 
