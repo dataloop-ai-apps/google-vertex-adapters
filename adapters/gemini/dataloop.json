@@ -1,0 +1,77 @@
+{
+  "name": "gemini",
+  "displayName": "Gemini 1.5 Pro",
+  "version": "0.0.1",
+  "scope": "project",
+  "description": "Vertex AI Gemini Model",
+  "attributes": {
+    "Hub": "Dataloop",
+    "Provider": "Dataloop",
+    "Category": "Model",
+    "Gen AI": "LMM"
+  },
+  "components": {
+    "modules": [
+      {
+        "name": "gemini-module",
+        "entryPoint": "chat_bison.py",
+        "className": "ModelAdapter",
+        "description": "Vertex AI Gemini Model Adapter",
+        "initInputs": [
+          {
+            "type": "Model",
+            "name": "model_entity"
+          },
+          {
+            "type": "String",
+            "name": "integration_name"
+          }
+        ],
+        "functions": [
+          {
+            "name": "predict_items",
+            "input": [
+              {
+                "type": "Item[]",
+                "name": "items",
+                "description": "List of items to run inference on"
+              }
+            ],
+            "output": [
+              {
+                "type": "Item[]",
+                "name": "items",
+                "description": "The same input images for prediction."
+              },
+              {
+                "type": "Annotation[]",
+                "name": "annotations",
+                "description": "The predicted annotations."
+              }
+            ],
+            "displayName": "Predict Items",
+            "displayIcon": "",
+            "description": "Vertex AI Gemini Model predict items"
+          }
+        ]
+      }
+    ],
+    "models": [
+      {
+        "name": "gemini",
+        "moduleName": "gemini-module",
+        "scope": "project",
+        "status": "pre-trained",
+        "configuration": {
+          "integration_name": "",
+          "system_prompt": "You are a helpful and a bit cynical assistant. Give relevant and short answers, if you dont know the answer just say it, dont make up an answer",
+          "max_tokens": 1024,
+          "temperature": 0.2,
+          "top_p": 0.7,
+          "top_k": 40
+        },
+        "description": "Gemini is a series of multimodal generative AI models developed by Google."
+      }
+    ]
+  }
+}

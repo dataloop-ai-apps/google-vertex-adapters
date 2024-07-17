@@ -1,0 +1,78 @@
+{
+  "name": "chat-bison@002",
+  "displayName": "PaLM 2 Chat Bison",
+  "version": "0.0.1",
+  "scope": "project",
+  "description": "Vertex AI Chat Bison Model",
+  "attributes": {
+    "Hub": "Dataloop",
+    "Provider": "Google",
+    "Category": "Model",
+    "Gen AI": "LLM",
+    "NLP": "Conversational"
+  },
+  "components": {
+    "modules": [
+      {
+        "name": "chat-bison@002-module",
+        "entryPoint": "chat_bison.py",
+        "className": "ModelAdapter",
+        "description": "Vertex AI Chat Bison Model Adapter",
+        "initInputs": [
+          {
+            "type": "Model",
+            "name": "model_entity"
+          },
+          {
+            "type": "String",
+            "name": "integration_name"
+          }
+        ],
+        "functions": [
+          {
+            "name": "predict_items",
+            "input": [
+              {
+                "type": "Item[]",
+                "name": "items",
+                "description": "List of items to run inference on"
+              }
+            ],
+            "output": [
+              {
+                "type": "Item[]",
+                "name": "items",
+                "description": "The same input images for prediction."
+              },
+              {
+                "type": "Annotation[]",
+                "name": "annotations",
+                "description": "The predicted annotations."
+              }
+            ],
+            "displayName": "Predict Items",
+            "displayIcon": "",
+            "description": "Vertex AI Chat Bison Model predict items"
+          }
+        ]
+      }
+    ],
+    "models": [
+      {
+        "name": "chat-bison@002",
+        "moduleName": "chat-bison@002-module",
+        "scope": "project",
+        "status": "pre-trained",
+        "configuration": {
+          "integration_name": "",
+          "system_prompt": "You are a helpful and a bit cynical assistant. Give relevant and short answers, if you dont know the answer just say it, dont make up an answer",
+          "max_tokens": 1024,
+          "temperature": 0.2,
+          "top_p": 0.7,
+          "top_k": 40
+        },
+        "description": "The PaLM 2 for Chat (chat-bison) foundation model is a large language model (LLM) that excels at language understanding, language generation, and conversations. This chat model is fine-tuned to conduct natural multi-turn conversations, and is ideal for text tasks about code that require back-and-forth interactions."
+      }
+    ]
+  }
+}
