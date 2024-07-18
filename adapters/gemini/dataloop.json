@@ -9,7 +9,7 @@
     "Provider": "Google",
     "Category": "Model",
     "Gen AI": "LMM",
-    "Deployed By": "Dataloop"
+    "Deployed By": "Google"
   },
   "components": {
     "modules": [
