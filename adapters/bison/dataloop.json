@@ -9,7 +9,8 @@
     "Provider": "Google",
     "Category": "Model",
     "Gen AI": "LLM",
-    "NLP": "Conversational"
+    "NLP": "Conversational",
+    "Deployed By": "Dataloop"
   },
   "components": {
     "modules": [

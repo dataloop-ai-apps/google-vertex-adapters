@@ -10,7 +10,7 @@ logger = logging.getLogger("Vertex AI Adapter")
 
 
 class ModelAdapter(dl.BaseModelAdapter):
-    def __init__(self, model_entity: dl.Model, integration_name=None):
+    def __init__(self, model_entity: dl.Model, integration_name):
         super().__init__(model_entity)
 
         self.max_token = self.model_entity.configuration.get('max_token', 1024)

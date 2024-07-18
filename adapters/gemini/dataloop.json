@@ -6,9 +6,10 @@
   "description": "Vertex AI Gemini Model",
   "attributes": {
     "Hub": "Dataloop",
-    "Provider": "Dataloop",
+    "Provider": "Google",
     "Category": "Model",
-    "Gen AI": "LMM"
+    "Gen AI": "LMM",
+    "Deployed By": "Dataloop"
   },
   "components": {
     "modules": [
