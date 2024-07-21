@@ -35,7 +35,6 @@
         }
       }
     ],
-  "components": {
     "modules": [
       {
         "name": "gemini-module",
