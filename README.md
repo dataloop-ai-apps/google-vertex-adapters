@@ -17,7 +17,7 @@ To use these models, you need a Google Cloud Platform (GCP) project. Follow thes
    - Navigate to the API Library in the GCP Console.
    - Enable the Vertex AI API.
 
-### 2. Create a Service Account
+### 2. Create a [Service Account](https://docs.dataloop.ai/docs/private-key-integration?highlight=create%20service%20account)
    - Go to the IAM & Admin section in the GCP Console.
    - Create a new service account.
    - Generate a new key and download the service account JSON file.

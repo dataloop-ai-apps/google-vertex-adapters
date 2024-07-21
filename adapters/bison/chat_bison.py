@@ -17,6 +17,8 @@ class ModelAdapter(dl.BaseModelAdapter):
         self.temperature = self.model_entity.configuration.get('temperature', 0.2)
         self.top_p = self.model_entity.configuration.get('top_p', 0.7)
         self.top_k = self.model_entity.configuration.get('top_k', 40)
+        self.context = self.model_entity.configuration.get('system_prompt', '')
+        self.model_name = self.model_entity.configuration.get('model_name', 'chat-bison@002')
 
         credentials = os.environ.get(integration_name.replace('-', '_'))
 
@@ -46,15 +48,13 @@ class ModelAdapter(dl.BaseModelAdapter):
                 text = None
                 context = None
                 for partial_prompt in prompt_content:
-                    if 'context' in partial_prompt.get('mimetype', ''):
-                        context = partial_prompt.get('value')
-                    elif 'text' in partial_prompt.get('mimetype', ''):
+                    if 'text' in partial_prompt.get('mimetype', ''):
                         text = partial_prompt.get('value')
                     else:
                         logger.warning(
                             f"Prompt Type: {partial_prompt.get('mimetype', '')}. Only text prompt from type is "
                             f"supported.")
-                if text is None or context is None:
+                if text is None:
                     logger.warning(f"{prompt_name} is missing a text prompt.")
                     continue
 
@@ -65,9 +65,9 @@ class ModelAdapter(dl.BaseModelAdapter):
                     "top_k": self.top_k
                 }
 
-                chat_model = ChatModel.from_pretrained("chat-bison@002")
+                chat_model = ChatModel.from_pretrained(self.model_name)
                 chat = chat_model.start_chat(
-                    context=context if context else None,
+                    context=self.context if self.context else None,
                 )
                 response = chat.send_message(
                     text, **parameters

@@ -17,6 +17,8 @@ class ModelAdapter(dl.BaseModelAdapter):
         self.temperature = self.model_entity.configuration.get('temperature', 0.2)
         self.top_p = self.model_entity.configuration.get('top_p', 0.7)
         self.top_k = self.model_entity.configuration.get('top_k', 40)
+        self.context = self.model_entity.configuration.get('system_prompt', '')
+        self.model_name = self.model_entity.configuration.get('model_name', "gemini-1.5-pro-001")
 
         credentials = os.environ.get(integration_name.replace('-', '_'))
 
@@ -55,8 +57,6 @@ class ModelAdapter(dl.BaseModelAdapter):
 
                     elif 'text' in partial_prompt.get('mimetype', ''):
                         text = partial_prompt.get('value')
-                    elif 'instructions' in partial_prompt.get('mimetype', ''):
-                        instructions_list.append(partial_prompt)
                     else:
                         logger.warning(
                             f"Prompt from type {partial_prompt.get('mimetype', '')} is not supported either an image "
@@ -72,7 +72,9 @@ class ModelAdapter(dl.BaseModelAdapter):
                     "top_k": self.top_k
                 }
 
-                generative_multimodal_model = GenerativeModel("gemini-1.5-pro-001",
+                instructions_list.append(self.context)
+
+                generative_multimodal_model = GenerativeModel(self.model_name,
                                                               system_instruction=instructions_list
                                                               )
                 response = generative_multimodal_model.generate_content([text, image],
@@ -95,5 +97,5 @@ class ModelAdapter(dl.BaseModelAdapter):
 if __name__ == '__main__':
     model = dl.models.get(model_id='')
     item = dl.items.get(item_id='')
-    adapter = ModelAdapter(model)
+    adapter = ModelAdapter(model, '')
     adapter.predict_items(items=[item])
