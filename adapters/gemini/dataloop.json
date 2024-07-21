@@ -38,7 +38,7 @@
     "modules": [
       {
         "name": "gemini-module",
-        "entryPoint": "chat_bison.py",
+        "entryPoint": "adapters/gemini/gemini.py",
         "className": "ModelAdapter",
         "description": "Vertex AI Gemini Model Adapter",
         "initInputs": [
