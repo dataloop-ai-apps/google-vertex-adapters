@@ -1,0 +1,102 @@
+{
+  "name": "vertex-gemini-15-pro",
+  "displayName": "Gemini 1.5 Pro",
+  "version": "0.0.1",
+  "scope": "public",
+  "description": "Vertex AI Gemini Model is a series of multimodal generative AI models developed by Google.",
+  "attributes": {
+    "Provider": "Google",
+    "Category": "Model",
+    "Gen AI": "LMM",
+    "Deployed By": "Google",
+    "Media Type": [
+      "Image",
+      "Text"
+    ]
+  },
+  "codebase": {
+    "type": "git",
+    "gitUrl": "https://github.com/dataloop-ai-apps/google-vertex-adapters.git",
+    "gitTag": "0.0.1"
+  },
+  "components": {
+    "computeConfigs": [
+      {
+        "name": "vertex-gemini-15-pro-deploy",
+        "runtime": {
+          "podType": "regular-xs",
+          "concurrency": 10,
+          "runnerImage": "gcr.io/viewo-g/piper/agent/runner/cpu/openai:1.0.0",
+          "autoscaler": {
+            "type": "rabbitmq",
+            "minReplicas": 0,
+            "maxReplicas": 2
+          }
+        }
+      }
+    ],
+  "components": {
+    "modules": [
+      {
+        "name": "gemini-module",
+        "entryPoint": "chat_bison.py",
+        "className": "ModelAdapter",
+        "description": "Vertex AI Gemini Model Adapter",
+        "initInputs": [
+          {
+            "type": "Model",
+            "name": "model_entity"
+          },
+          {
+            "type": "String",
+            "name": "integration_name"
+          }
+        ],
+        "functions": [
+          {
+            "name": "predict_items",
+            "input": [
+              {
+                "type": "Item[]",
+                "name": "items",
+                "description": "List of items to run inference on"
+              }
+            ],
+            "output": [
+              {
+                "type": "Item[]",
+                "name": "items",
+                "description": "The same input images for prediction."
+              },
+              {
+                "type": "Annotation[]",
+                "name": "annotations",
+                "description": "The predicted annotations."
+              }
+            ],
+            "displayName": "Predict Items",
+            "displayIcon": "",
+            "description": "Vertex AI Gemini Model predict items"
+          }
+        ]
+      }
+    ],
+    "models": [
+      {
+        "name": "vertex-gemini-15-pro",
+        "moduleName": "gemini-module",
+        "scope": "project",
+        "status": "pre-trained",
+        "configuration": {
+          "model_name": "gemini-1.5-pro-001",
+          "system_prompt": "You are a helpful and a bit cynical assistant. Give relevant and short answers, if you dont know the answer just say it, dont make up an answer",
+          "max_tokens": 1024,
+          "temperature": 0.2,
+          "top_p": 0.7,
+          "top_k": 40
+        },
+        "description": "Gemini is a series of multimodal generative AI models developed by Google."
+      }
+    ]
+  }
+}
