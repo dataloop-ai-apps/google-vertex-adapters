@@ -79,8 +79,9 @@ class ModelAdapter(dl.BaseModelAdapter):
                 generative_multimodal_model = GenerativeModel(self.model_name,
                                                               system_instruction=instructions_list
                                                               )
+                model_input = [text, image] if image is not None else text
                 response = generative_multimodal_model.generate_content(
-                    [text, image] if image is not None else text,
+                    model_input,
                     generation_config=parameters)
 
                 content = response.text
