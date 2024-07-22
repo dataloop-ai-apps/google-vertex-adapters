@@ -1,7 +1,7 @@
 {
   "name": "vertex-chat-bison",
   "displayName": "PaLM 2 Chat Bison",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "scope": "public",
   "description": "The Vertex PaLM 2 for Chat (chat-bison) foundation model is a large language model (LLM) that excels at language understanding, language generation, and conversations.",
   "attributes": {
@@ -17,7 +17,7 @@
   "codebase": {
     "type": "git",
     "gitUrl": "https://github.com/dataloop-ai-apps/google-vertex-adapters.git",
-    "gitTag": "0.0.5"
+    "gitTag": "0.0.6"
   },
   "components": {
     "computeConfigs": [
