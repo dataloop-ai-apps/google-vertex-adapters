@@ -4,7 +4,8 @@ import json
 import dtlpy as dl
 import logging
 from vertexai.preview.generative_models import GenerativeModel, Image
-from google.cloud import storage
+import vertexai
+from google.oauth2 import service_account
 
 logger = logging.getLogger("Vertex AI Adapter")
 
@@ -20,14 +21,15 @@ class ModelAdapter(dl.BaseModelAdapter):
         self.context = self.model_entity.configuration.get('system_prompt', '')
         self.model_name = self.model_entity.configuration.get('model_name', "gemini-1.5-pro-001")
 
-        credentials = os.environ.get(integration_name.replace('-', '_'))
-
-        # for case of integration
+        # Retrieving the service account JSON file, formatting it and initializing Vertex with it
+        credentials = os.environ.get(integration_name)
         credentials = base64.b64decode(credentials)
         credentials = credentials.decode("utf-8")
         credentials = json.loads(credentials)
         credentials = json.loads(credentials['content'])
-        self.client = storage.Client.from_service_account_info(info=credentials)
+        project_id = credentials.get('project_id', None)
+        credentials = service_account.Credentials.from_service_account_info(credentials)
+        vertexai.init(credentials=credentials, project=project_id)
 
     def load(self, local_path, **kwargs):
         pass
@@ -77,8 +79,9 @@ class ModelAdapter(dl.BaseModelAdapter):
                 generative_multimodal_model = GenerativeModel(self.model_name,
                                                               system_instruction=instructions_list
                                                               )
-                response = generative_multimodal_model.generate_content([text, image],
-                                                                        generation_config=parameters)
+                response = generative_multimodal_model.generate_content(
+                    [text, image] if image is not None else text,
+                    generation_config=parameters)
 
                 content = response.text
                 ann_collection.add(

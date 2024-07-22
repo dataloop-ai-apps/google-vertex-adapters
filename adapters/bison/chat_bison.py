@@ -4,7 +4,8 @@ import json
 import dtlpy as dl
 import logging
 from vertexai.language_models import ChatModel
-from google.cloud import storage
+import vertexai
+from google.oauth2 import service_account
 
 logger = logging.getLogger("Vertex AI Adapter")
 
@@ -17,17 +18,18 @@ class ModelAdapter(dl.BaseModelAdapter):
         self.temperature = self.model_entity.configuration.get('temperature', 0.2)
         self.top_p = self.model_entity.configuration.get('top_p', 0.7)
         self.top_k = self.model_entity.configuration.get('top_k', 40)
-        self.context = self.model_entity.configuration.get('system_prompt', '')
+        self.context = self.model_entity.configuration.get('system_prompt', None)
         self.model_name = self.model_entity.configuration.get('model_name', 'chat-bison@002')
 
-        credentials = os.environ.get(integration_name.replace('-', '_'))
-
-        # for case of integration
+        # Retrieving the service account JSON file, formatting it and initializing Vertex with it
+        credentials = os.environ.get(integration_name)
         credentials = base64.b64decode(credentials)
         credentials = credentials.decode("utf-8")
         credentials = json.loads(credentials)
         credentials = json.loads(credentials['content'])
-        self.client = storage.Client.from_service_account_info(info=credentials)
+        project_id = credentials.get('project_id', None)
+        credentials = service_account.Credentials.from_service_account_info(credentials)
+        vertexai.init(credentials=credentials, project=project_id)
 
     def load(self, local_path, **kwargs):
         pass
