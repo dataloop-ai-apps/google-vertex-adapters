@@ -26,7 +26,7 @@
         "runtime": {
           "podType": "regular-xs",
           "concurrency": 10,
-          "runnerImage": "gcr.io/viewo-g/piper/agent/runner/cpu/openai:1.0.0",
+          "runnerImage": "gcr.io/viewo-g/piper/agent/runner/apps/google-vertex-adapters:0.1.0",
           "autoscaler": {
             "type": "rabbitmq",
             "minReplicas": 0,
