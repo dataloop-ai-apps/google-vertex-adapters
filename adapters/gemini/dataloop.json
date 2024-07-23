@@ -39,6 +39,7 @@
       {
         "name": "gemini-module",
         "entryPoint": "adapters/gemini/gemini.py",
+        "computeConfig": "vertex-gemini-15-pro-deploy",
         "className": "ModelAdapter",
         "description": "Vertex AI Gemini Model Adapter",
         "initInputs": [
