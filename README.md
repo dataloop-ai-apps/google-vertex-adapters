@@ -42,13 +42,13 @@ To use these models, you need a Google Cloud Platform (GCP) project. Follow thes
 
 ### 3. Add the Integration to the Model's [Service Configuration](https://docs.dataloop.ai/docs/service-runtime#secrets-for-faas)
 
-- Locate the service of your model in CloudOps and click on it.  
-  ![Service Page](assets/service_page.png)
+- Go to the Models page and click on the three dots, then deploy.  
+  ![Model Page](assets/models_page.png)
 
-- Under 'Service Actions', click on 'Edit Service Settings'.  
-  ![Service Configuration Settings](assets/service_conf_settings.png)
+- Under 'Model Version Deployment', you can edit the secret.  
+  ![Model Configuration Settings](assets/model_config.png)
 
-- In "Secrets & Integrations", locate your integration and select it. Under 'init inputs value', enter the integration name you just selected in 'integration_name'.
+- In "Secrets & Integrations", locate your integration and select it. Under "init inputs value", enter the integration name you just selected in "Secrets & Integrations".
 
 ### 4. Change Model's Parameters
 
