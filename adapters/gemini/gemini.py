@@ -4,7 +4,8 @@ import json
 import dtlpy as dl
 import logging
 from vertexai.preview.generative_models import GenerativeModel, Image
-from google.cloud import storage
+import vertexai
+from google.oauth2 import service_account
 
 logger = logging.getLogger("Vertex AI Adapter")
 
@@ -29,7 +30,9 @@ class ModelAdapter(dl.BaseModelAdapter):
             raise ValueError("Unable to decode the service account JSON. "
                              "Please refer to the following guide for proper usage of GCP service accounts with "
                              "Dataloop: https://github.com/dataloop-ai-apps/google-vertex-adapters/blob/main/README.md")
-        self.client = storage.Client.from_service_account_info(info=credentials)
+        project_id = credentials.get('project_id', None)
+        credentials = service_account.Credentials.from_service_account_info(credentials)
+        vertexai.init(credentials=credentials, project=project_id)
 
     def load(self, local_path, **kwargs):
         pass

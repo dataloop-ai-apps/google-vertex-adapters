@@ -28,12 +28,13 @@ To use these models, you need a Google Cloud Platform (GCP) project. Follow thes
 ## Integrating Google Vertex AI with Dataloop Platform
 
    - Visit the [Dataloop Marketplace](https://docs.dataloop.ai/docs/marketplace), under Models tab.
-   - Select the model and click on "Install" and then "Proceed".
 ![Marketplace](assets/marketplace.png)
+   - Select the model and click on "Install" and then "Proceed".
+![Add Integration](assets/add_integration.png)
    - Select an existing GCP integration or add a new one by importing the JSON file you previously downloaded.
-![Create Integration](assets/add_integration.png)
+![Create Integration](assets/create_integration.png)
    - Install the model.
-![Integration](assets/add_integration_to_app.png)
+![Install](assets/add_integration_to_app.png)
 
 ### Use the model and change model's configuration
 
@@ -49,6 +50,7 @@ To use these models, you need a Google Cloud Platform (GCP) project. Follow thes
   - **"temperature"**: A parameter that controls the randomness of the output. Lower values make the output more focused and deterministic, while higher values increase randomness and creativity.
   - **"top_p"**: Also known as nucleus sampling. It controls the cumulative probability distribution of the next token. Tokens are selected from the smallest set whose cumulative probability exceeds this threshold, leading to more coherent responses.
   - **"top_k"**: Limits the number of highest probability tokens to consider when generating the next token. Lower values restrict the choice to a smaller set of top tokens, making responses more focused.
+
 ---
 
 For additional assistance or inquiries, please refer to the Dataloop documentation or contact support.
