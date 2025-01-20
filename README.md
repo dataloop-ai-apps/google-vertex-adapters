@@ -17,7 +17,7 @@ To use these models, you need a Google Cloud Platform (GCP) project. Follow thes
    - Navigate to the API Library in the GCP Console.
    - Enable the Vertex AI API.
 
-### 2. Create a GCP [Service Account](https://docs.dataloop.ai/docs/private-key-integration?highlight=create%20service%20account)
+### 2. Create a [Service Account](https://docs.dataloop.ai/docs/private-key-integration?highlight=create%20service%20account)
    - Go to the IAM & Admin section in the GCP Console.
    - Create a new service account.
    - Generate a new key and download the service account JSON file.
@@ -27,32 +27,19 @@ To use these models, you need a Google Cloud Platform (GCP) project. Follow thes
 
 ## Integrating Google Vertex AI with Dataloop Platform
 
-### 1. Install the Model
-   - Visit the [Dataloop Marketplace](https://docs.dataloop.ai/docs/marketplace).
-   - Install the desired model.
-![Dataloop Marketplace](assets/marketplace.png)
+   - Visit the [Dataloop Marketplace](https://docs.dataloop.ai/docs/marketplace), under Models tab.
+   - Select the model and click on "Install" and then "Proceed".
+![Marketplace](assets/marketplace.png)
+   - Select an existing GCP integration or add a new one by importing the JSON file you previously downloaded.
+![Create Integration](assets/add_integration.png)
+   - Install the model.
+![Integration](assets/add_integration_to_app.png)
 
-### 2. Create the Integration in Data Governance
-   - Go to the [Data Governance](https://docs.dataloop.ai/docs/overview-1?highlight=data%20governance) section in the Dataloop platform.
-![Data Governance](assets/data_governance.png)
-   - Click on "Create Integration".
-![Create Integration](assets/integration.png)
-   - Choose an integration name, select "GCP" as the provider, and "Private Key" as the integration type.
-   - Import the service account JSON file you previously downloaded.
+### Use the model and change model's configuration
 
-### 3. Add the Integration to the Model's [Service Configuration](https://docs.dataloop.ai/docs/service-runtime#secrets-for-faas)
-
-- Go to the Models page and click on the three dots, then deploy.  
-  ![Model Page](assets/models_page.png)
-
-- Under 'Model Version Deployment', you can edit the secret.  
-  ![Model Configuration Settings](assets/model_config.png)
-
-- In "Secrets & Integrations", locate your integration and select it. Under "init inputs value", enter the integration name you just selected in "Secrets & Integrations".
-
-### 4. Change Model's Parameters
-
-- Go to 'Models' and select the model you want to update.  
+- Go to 'Models' page.
+![Model Page](assets/models_page.png)
+- Select the model configuration you want to update.  
   ![Model Parameters](assets/model_parameters.png)
 
 - Here, you can change parameters for your model under 'Configuration':
@@ -62,8 +49,6 @@ To use these models, you need a Google Cloud Platform (GCP) project. Follow thes
   - **"temperature"**: A parameter that controls the randomness of the output. Lower values make the output more focused and deterministic, while higher values increase randomness and creativity.
   - **"top_p"**: Also known as nucleus sampling. It controls the cumulative probability distribution of the next token. Tokens are selected from the smallest set whose cumulative probability exceeds this threshold, leading to more coherent responses.
   - **"top_k"**: Limits the number of highest probability tokens to consider when generating the next token. Lower values restrict the choice to a smaller set of top tokens, making responses more focused.
-
-
 ---
 
 For additional assistance or inquiries, please refer to the Dataloop documentation or contact support.
