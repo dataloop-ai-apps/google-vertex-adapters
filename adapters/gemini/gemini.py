@@ -26,8 +26,9 @@ class ModelAdapter(dl.BaseModelAdapter):
             credentials_json = json.loads(decoded_credentials)
             credentials = json.loads(credentials_json['content'])
         except Exception:
-            raise ValueError(f"Failed to decode the service account json. Check the associated ReadMe to check how to "
-                             f"properly use GCP service account with Dataloop.")
+            raise ValueError("Unable to decode the service account JSON. "
+                             "Please refer to the following guide for proper usage of GCP service accounts with "
+                             "Dataloop: https://github.com/dataloop-ai-apps/google-vertex-adapters/blob/main/README.md")
         self.client = storage.Client.from_service_account_info(info=credentials)
 
     def load(self, local_path, **kwargs):
