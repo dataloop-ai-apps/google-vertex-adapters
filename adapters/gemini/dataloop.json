@@ -42,14 +42,13 @@
         "computeConfig": "vertex-gemini-15-pro-deploy",
         "className": "ModelAdapter",
         "description": "Vertex AI Gemini Model Adapter",
+        "integrations": [
+          "dl-gcp-service-account"
+        ],
         "initInputs": [
           {
             "type": "Model",
             "name": "model_entity"
-          },
-          {
-            "type": "String",
-            "name": "integration_name"
           }
         ],
         "functions": [
