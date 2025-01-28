@@ -53,4 +53,25 @@ To use these models, you need a Google Cloud Platform (GCP) project. Follow thes
 
 ---
 
+### Attributions
+
+This application, developed by Dataloop, provides an adapter for Google Vertex AI Generative AI models. While the code in this repository is open-sourced under the Apache License 2.0, the use of Google Vertex AI Generative AI models is subject to Google's licensing terms, including but not limited to:
+
+- [Google Cloud Platform Terms of Service](https://cloud.google.com/terms)
+- [Vertex AI Terms of Service](https://cloud.google.com/terms/service-terms#vertex_ai_models)
+
+### Important Note
+
+By using this application with Google Vertex AI Generative AI models, you acknowledge that:
+1. You have reviewed and agreed to Google's licensing terms for the use of Vertex AI services.
+2. You are solely responsible for ensuring compliance with these terms when using Google Vertex AI Generative AI models.
+3. The authors of this application, Dataloop, are not responsible for any compliance issues, fees, or damages arising from the use of Google Vertex AI models.
+
+This application is provided "as is" under the terms of the Apache License 2.0. Dataloop makes no warranties or guarantees regarding the performance, functionality, or legal compliance of this adapter when used with Google Vertex AI Generative AI models.
+
+### Additional Resources
+
+For more information about the Google Vertex AI Generative AI models, please visit the official documentation:
+- [Google Vertex AI Generative AI Models](https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models)
+
 For additional assistance or inquiries, please refer to the Dataloop documentation or contact support.
