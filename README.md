@@ -37,7 +37,7 @@ To use these models, you need a Google Cloud Platform (GCP) project. Follow thes
 
 ### Use the model and change model's configuration
 
-- This model is using prompt items as input. You can find more information about prompt items [here]([https://docs.dataloop.ai/docs/prompt-items](https://developers.dataloop.ai/tutorials/annotations/prompts/chapter)).
+- This model is using prompt items as input. You can find more information about prompt items [here](https://developers.dataloop.ai/tutorials/annotations/prompts/chapter).
 - Go to 'Models' page.
 ![Model Page](assets/models_page.png)
 - Select the model configuration you want to update.  

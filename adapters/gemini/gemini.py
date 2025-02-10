@@ -40,8 +40,10 @@ class ModelAdapter(dl.BaseModelAdapter):
     def prepare_item_func(self, item: dl.Item):
         if 'json' not in item.mimetype or item.metadata.get('system', dict()).get('shebang', dict()).get(
                 'dltype') != 'prompt':
-            logger.warning(f"Item is not a JSON file or a Prompt item.")
-            return None
+            raise ValueError(f"Item is not a JSON file or a prompt item. Item type: {item.mimetype}. "
+                             "To create a prompt item, please refer to the following guide: "
+                             "https://developers.dataloop.ai/tutorials/annotations/prompts/chapter")
+
         buffer = json.load(item.download(save_locally=False))
         return buffer
 
