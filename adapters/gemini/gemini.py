@@ -50,24 +50,21 @@ class ModelAdapter(dl.BaseModelAdapter):
         for prompt_item in batch:
             ann_collection = dl.AnnotationCollection()
             for prompt_name, prompt_content in prompt_item.get('prompts').items():
+                content_parts = []
                 instructions_list = list()
-                text = None
-                image = None
                 for partial_prompt in prompt_content:
-                    if 'image' in partial_prompt.get('mimetype', ''):
-                        image_url = partial_prompt.get('value', '')
-                        item_id = image_url.split("/stream")[0].split("/items/")[-1]
+                    mimetype = partial_prompt.get('mimetype', '')
+                    value = partial_prompt.get('value', '')
+                    
+                    if '/image' in mimetype:
+                        item_id = value.split("/stream")[0].split("/items/")[-1]
                         image_buffer = dl.items.get(item_id=item_id).download(save_locally=False).getvalue()
-                        image = Image.from_bytes(image_buffer)
-                    elif 'text' in partial_prompt.get('mimetype', ''):
-                        text = partial_prompt.get('value')
+                        content_parts.append(Image.from_bytes(image_buffer))
+                    elif '/text' in mimetype:
+                        content_parts.append(value)
                     else:
                         logger.warning(
-                            f"Prompt from type {partial_prompt.get('mimetype', '')} is not supported either an image "
-                            f"or a text prompt.")
-                if text is None or image is None:
-                    logger.warning(f"{prompt_name} is missing either an image or a text prompt.")
-                    continue
+                            f"Prompt from type {mimetype} is not supported. Please provide either an image and/or a text prompt.")
 
                 parameters = {
                     "temperature": self.temperature,
@@ -78,15 +75,17 @@ class ModelAdapter(dl.BaseModelAdapter):
 
                 instructions_list.append(self.context)
 
-                generative_multimodal_model = GenerativeModel(self.model_name,
-                                                              system_instruction=instructions_list
-                                                              )
-                response = generative_multimodal_model.generate_content([text, image],
-                                                                        generation_config=parameters)
+                generative_multimodal_model = GenerativeModel(
+                    self.model_name,
+                    system_instruction=instructions_list
+                )
+                response = generative_multimodal_model.generate_content(
+                    content_parts,
+                    generation_config=parameters
+                )
 
-                content = response.text
                 ann_collection.add(
-                    annotation_definition=dl.FreeText(text=content),
+                    annotation_definition=dl.FreeText(text=response.text),
                     prompt_id=prompt_name,
                     model_info={
                         'name': self.model_entity.name,
