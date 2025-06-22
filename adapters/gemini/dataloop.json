@@ -1,9 +1,9 @@
 {
-  "name": "vertex-gemini-15-pro",
-  "displayName": "Gemini 1.5 Pro",
+  "name": "vertex-gemini",
+  "displayName": "Gemini Models",
   "version": "0.0.11",
   "scope": "public",
-  "description": "Vertex AI Gemini Model is a series of multimodal generative AI models developed by Google.",
+  "description": "Vertex AI Gemini Models are a series of multimodal generative AI models developed by Google.",
   "attributes": {
     "Provider": "Google",
     "Category": "Model",
@@ -22,7 +22,7 @@
   "components": {
     "computeConfigs": [
       {
-        "name": "vertex-gemini-15-pro-deploy",
+        "name": "vertex-gemini-deploy",
         "runtime": {
           "podType": "regular-xs",
           "concurrency": 10,
@@ -39,7 +39,7 @@
       {
         "name": "gemini-module",
         "entryPoint": "adapters/gemini/gemini.py",
-        "computeConfig": "vertex-gemini-15-pro-deploy",
+        "computeConfig": "vertex-gemini-deploy",
         "className": "ModelAdapter",
         "description": "Vertex AI Gemini Model Adapter",
         "integrations": [
@@ -82,12 +82,27 @@
     ],
     "models": [
       {
-        "name": "vertex-gemini-15-pro",
+        "name": "vertex-gemini-2-5-flash",
         "moduleName": "gemini-module",
         "scope": "project",
         "status": "pre-trained",
         "configuration": {
-          "model_name": "gemini-1.5-pro-001",
+          "model_name": "gemini-2.5-flash",
+          "system_prompt": "",
+          "max_tokens": 1024,
+          "temperature": 0.2,
+          "top_p": 0.7,
+          "top_k": 40
+        },
+        "description": "Gemini is a series of multimodal generative AI models developed by Google."
+      },
+      {
+        "name": "vertex-gemini-2-5-pro",
+        "moduleName": "gemini-module",
+        "scope": "project",
+        "status": "pre-trained",
+        "configuration": {
+          "model_name": "gemini-2.5-pro",
           "system_prompt": "",
           "max_tokens": 1024,
           "temperature": 0.2,

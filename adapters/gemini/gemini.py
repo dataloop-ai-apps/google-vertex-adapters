@@ -3,11 +3,11 @@ import base64
 import json
 import dtlpy as dl
 import logging
-from vertexai.preview.generative_models import GenerativeModel, Image
 import vertexai
+from vertexai.generative_models import GenerativeModel, Image
 from google.oauth2 import service_account
 
-logger = logging.getLogger("Vertex AI Adapter")
+logger = logging.getLogger("Vertex Gemini Adapter")
 
 
 class ModelAdapter(dl.BaseModelAdapter):
@@ -19,7 +19,7 @@ class ModelAdapter(dl.BaseModelAdapter):
         self.top_p = self.model_entity.configuration.get('top_p', 0.7)
         self.top_k = self.model_entity.configuration.get('top_k', 40)
         self.context = self.model_entity.configuration.get('system_prompt', '')
-        self.model_name = self.model_entity.configuration.get('model_name', "gemini-1.5-pro-001")
+        self.model_name = self.model_entity.configuration.get('model_name', "gemini-2.5-flash")
 
         raw_credentials = os.environ.get("GCP_SERVICE_ACCOUNT", None)
         try:
@@ -40,10 +40,8 @@ class ModelAdapter(dl.BaseModelAdapter):
     def prepare_item_func(self, item: dl.Item):
         if 'json' not in item.mimetype or item.metadata.get('system', dict()).get('shebang', dict()).get(
                 'dltype') != 'prompt':
-            raise ValueError(f"Item is not a JSON file or a prompt item. Item type: {item.mimetype}. "
-                             "To create a prompt item, please refer to the following guide: "
-                             "https://developers.dataloop.ai/tutorials/annotations/prompts/chapter")
-
+            logger.warning(f"Item is not a JSON file or a Prompt item.")
+            return None
         buffer = json.load(item.download(save_locally=False))
         return buffer
 
@@ -61,7 +59,6 @@ class ModelAdapter(dl.BaseModelAdapter):
                         item_id = image_url.split("/stream")[0].split("/items/")[-1]
                         image_buffer = dl.items.get(item_id=item_id).download(save_locally=False).getvalue()
                         image = Image.from_bytes(image_buffer)
-
                     elif 'text' in partial_prompt.get('mimetype', ''):
                         text = partial_prompt.get('value')
                     else:
