@@ -4,7 +4,7 @@ import json
 import dtlpy as dl
 import logging
 import vertexai
-from vertexai.generative_models import GenerativeModel, Image
+from vertexai.generative_models import GenerativeModel, Image, FinishReason
 from google.oauth2 import service_account
 
 logger = logging.getLogger("Vertex Gemini Adapter")
@@ -83,6 +83,9 @@ class ModelAdapter(dl.BaseModelAdapter):
                     content_parts,
                     generation_config=parameters
                 )
+                if response._raw_response.candidates[0].finish_reason != FinishReason.STOP:
+                    logger.warning(f"Generation stopped by the model. Finish reason: {response._raw_response.candidates[0].finish_reason}")
+                    continue
 
                 ann_collection.add(
                     annotation_definition=dl.FreeText(text=response.text),
