@@ -1,0 +1,96 @@
+{
+  "name": "vertex-mistral-ocr",
+  "displayName": "Mistral OCR",
+  "version": "0.0.1",
+  "scope": "public",
+  "description": "Vertex AI Mistral OCR Model for extracting text from images and PDF documents.",
+  "attributes": {
+    "Provider": "Mistral AI",
+    "Category": "Model",
+    "Gen AI": "OCR",
+    "Deployed By": "Google",
+    "Media Type": [
+      "Image",
+      "PDF"
+    ]
+  },
+  "codebase": {
+    "type": "git",
+    "gitUrl": "https://github.com/dataloop-ai-apps/google-vertex-adapters.git",
+    "gitTag": "0.0.1"
+  },
+  "components": {
+    "computeConfigs": [
+      {
+        "name": "vertex-mistral-ocr-deploy",
+        "runtime": {
+          "podType": "regular-xs",
+          "concurrency": 10,
+          "runnerImage": "gcr.io/viewo-g/piper/agent/runner/apps/google-vertex-adapters:0.1.0",
+          "autoscaler": {
+            "type": "rabbitmq",
+            "minReplicas": 0,
+            "maxReplicas": 2
+          }
+        }
+      }
+    ],
+    "modules": [
+      {
+        "name": "mistral-ocr-module",
+        "entryPoint": "adapters/mistral_ocr/mistral_ocr.py",
+        "computeConfig": "vertex-mistral-ocr-deploy",
+        "className": "ModelAdapter",
+        "description": "Vertex AI Mistral OCR Model Adapter",
+        "integrations": [
+          "dl-gcp-service-account"
+        ],
+        "initInputs": [
+          {
+            "type": "Model",
+            "name": "model_entity"
+          }
+        ],
+        "functions": [
+          {
+            "name": "predict_items",
+            "input": [
+              {
+                "type": "Item[]",
+                "name": "items",
+                "description": "List of image/PDF items or prompt items to run OCR on"
+              }
+            ],
+            "output": [
+              {
+                "type": "Item[]",
+                "name": "items",
+                "description": "The same input items for OCR processing."
+              },
+              {
+                "type": "Annotation[]",
+                "name": "annotations",
+                "description": "The OCR text annotations."
+              }
+            ],
+            "displayName": "Predict Items",
+            "displayIcon": "",
+            "description": "Vertex AI Mistral OCR Model predict items - supports both direct files and prompt items"
+          }
+        ]
+      }
+    ],
+    "models": [
+      {
+        "name": "vertex-mistral-ocr-2505",
+        "moduleName": "mistral-ocr-module",
+        "scope": "project",
+        "status": "pre-trained",
+        "configuration": {
+          "model_id": "mistral-ocr-2505"
+        },
+        "description": "Mistral OCR model for extracting text from images and PDF documents. Supports both direct file input and prompt-based input."
+      }
+    ]
+  }
+}
