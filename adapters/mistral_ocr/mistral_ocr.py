@@ -98,7 +98,7 @@ class ModelAdapter(dl.BaseModelAdapter):
                 value = partial_prompt.get('value', '')
                 
                 # Handle image content in prompt
-                if '/image' in mimetype:
+                if 'image' in mimetype:
                     item_id = value.split("/stream")[0].split("/items/")[-1]
                     image_buffer = dl.items.get(item_id=item_id).download(save_locally=False).getvalue()
                     base64_document = base64.b64encode(image_buffer).decode('utf-8')
@@ -191,14 +191,7 @@ class ModelAdapter(dl.BaseModelAdapter):
                 ocr_text = self._process_file_item(batch_item)
                 
                 if ocr_text:
-                    ann_collection.add(
-                        annotation_definition=dl.FreeText(text=ocr_text),
-                        model_info={
-                            'name': self.model_entity.name,
-                            'model_id': self.model_entity.id,
-                            'confidence': 1.0
-                        }
-                    )
+                    batch_item.description = ocr_text
                 else:
                     logger.warning(f"No OCR text extracted from item {batch_item.id}")
             
