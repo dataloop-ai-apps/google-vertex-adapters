@@ -106,10 +106,8 @@ class ModelAdapter(dl.BaseModelAdapter):
                     # Determine image type
                     if 'jpeg' in mimetype or 'jpg' in mimetype:
                         data_url = f"data:image/jpeg;base64,{base64_document}"
-                    elif 'png' in mimetype:
-                        data_url = f"data:image/png;base64,{base64_document}"
                     else:
-                        data_url = f"data:{mimetype};base64,{base64_document}"
+                        data_url = f"data:image/png;base64,{base64_document}"
                     
                     return self._call_mistral_ocr_api(data_url, item_id)
                 

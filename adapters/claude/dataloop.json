@@ -1,13 +1,13 @@
 {
-  "name": "vertex-gemini",
-  "displayName": "Gemini Models",
-  "version": "0.0.11",
+  "name": "vertex-claude-4-opus",
+  "displayName": "Claude 4 Opus",
+  "version": "0.0.1",
   "scope": "public",
-  "description": "Vertex AI Gemini Models are a series of multimodal generative AI models developed by Google.",
+  "description": "Vertex AI Claude 4 Opus Model for advanced text and image analysis using Anthropic's Claude via Google Cloud Vertex AI. Works exclusively with prompt items.",
   "attributes": {
-    "Provider": "Google",
+    "Provider": "Anthropic",
     "Category": "Model",
-    "Gen AI": "LMM",
+    "Gen AI": "LLM",
     "Deployed By": "Google",
     "Media Type": [
       "Image",
@@ -17,12 +17,12 @@
   "codebase": {
     "type": "git",
     "gitUrl": "https://github.com/dataloop-ai-apps/google-vertex-adapters.git",
-    "gitTag": "0.0.11"
+    "gitTag": "0.0.1"
   },
   "components": {
     "computeConfigs": [
       {
-        "name": "vertex-gemini-deploy",
+        "name": "vertex-claude-4-opus-deploy",
         "runtime": {
           "podType": "regular-xs",
           "concurrency": 10,
@@ -37,11 +37,11 @@
     ],
     "modules": [
       {
-        "name": "gemini-module",
-        "entryPoint": "adapters/gemini/gemini.py",
-        "computeConfig": "vertex-gemini-deploy",
+        "name": "claude-4-opus-module",
+        "entryPoint": "adapters/claude/claude.py",
+        "computeConfig": "vertex-claude-4-opus-deploy",
         "className": "ModelAdapter",
-        "description": "Vertex AI Gemini Model Adapter",
+        "description": "Vertex AI Claude 4 Opus Model Adapter",
         "integrations": [
           "dl-gcp-service-account"
         ],
@@ -58,58 +58,39 @@
               {
                 "type": "Item[]",
                 "name": "items",
-                "description": "List of items to run inference on"
+                "description": "List of prompt items to analyze with Claude 4 Opus"
               }
             ],
             "output": [
               {
                 "type": "Item[]",
                 "name": "items",
-                "description": "The same input images for prediction."
+                "description": "The same input prompt items for Claude analysis."
               },
               {
                 "type": "Annotation[]",
                 "name": "annotations",
-                "description": "The predicted annotations."
+                "description": "The Claude response annotations."
               }
             ],
             "displayName": "Predict Items",
             "displayIcon": "",
-            "description": "Vertex AI Gemini Model predict items"
+            "description": "Vertex AI Claude 4 Opus Model predict items - works exclusively with prompt items"
           }
         ]
       }
     ],
     "models": [
       {
-        "name": "vertex-gemini-2-5-flash",
-        "moduleName": "gemini-module",
+        "name": "vertex-claude-4-opus",
+        "moduleName": "claude-4-opus-module",
         "scope": "project",
         "status": "pre-trained",
         "configuration": {
-          "model_name": "gemini-2.5-flash",
-          "system_prompt": "",
-          "max_tokens": 1024,
-          "temperature": 0.2,
-          "top_p": 0.7,
-          "top_k": 40
+          "model_id": "claude-opus-4@20250514",
+          "max_tokens": 1024
         },
-        "description": "Gemini is a series of multimodal generative AI models developed by Google."
-      },
-      {
-        "name": "vertex-gemini-2-5-pro",
-        "moduleName": "gemini-module",
-        "scope": "project",
-        "status": "pre-trained",
-        "configuration": {
-          "model_name": "gemini-2.5-pro",
-          "system_prompt": "",
-          "max_tokens": 1024,
-          "temperature": 0.2,
-          "top_p": 0.7,
-          "top_k": 40
-        },
-        "description": "Gemini is a series of multimodal generative AI models developed by Google."
+        "description": "Claude 4 Opus model for advanced text and image analysis through prompt-based conversations. Works exclusively with prompt items."
       }
     ]
   }
