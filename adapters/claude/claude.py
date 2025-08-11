@@ -4,6 +4,8 @@ import json
 import dtlpy as dl
 import logging
 from anthropic import AnthropicVertex
+from google.oauth2 import service_account
+from google.auth.transport.requests import Request
 
 logger = logging.getLogger("Vertex Claude Adapter")
 
@@ -31,11 +33,16 @@ class ModelAdapter(dl.BaseModelAdapter):
         self.project_id = credentials.get('project_id', None)
         self.region = credentials.get('location', 'us-east5')  # Default region for Claude
         
-        # Initialize Anthropic Vertex client
+        self.credentials = service_account.Credentials.from_service_account_info(
+            credentials,
+            scopes=["https://www.googleapis.com/auth/cloud-platform"]
+        )
+        self.credentials.refresh(Request())
+        
         self.client = AnthropicVertex(
             region=self.region,
             project_id=self.project_id,
-            credentials=credentials
+            credentials=self.credentials
         )
 
     def prepare_item_func(self, item: dl.Item):
