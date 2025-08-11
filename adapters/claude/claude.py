@@ -34,7 +34,8 @@ class ModelAdapter(dl.BaseModelAdapter):
         # Initialize Anthropic Vertex client
         self.client = AnthropicVertex(
             region=self.region,
-            project_id=self.project_id
+            project_id=self.project_id,
+            credentials=credentials
         )
 
     def prepare_item_func(self, item: dl.Item):
