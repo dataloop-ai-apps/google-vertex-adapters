@@ -91,7 +91,9 @@ class ModelAdapter(dl.BaseModelAdapter):
                     elif 'webp' in mimetype:
                         media_type = "image/webp"
                     else:
-                        media_type = "image/jpeg"  # Default fallback
+                        image_item = dl.items.get(item_id=item_id)
+                        extension = image_item.name.split('.')[-1].lower()
+                        media_type = f"image/{extension}"  # Get media type from file extension
                     
                     messages.append({
                         "type": "image",
