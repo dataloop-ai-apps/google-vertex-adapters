@@ -1,32 +1,32 @@
 {
-  "name": "vertex-gemini-15-pro",
-  "displayName": "Gemini 1.5 Pro",
-  "version": "0.0.11",
+  "name": "vertex-mistral-ocr",
+  "displayName": "Mistral OCR",
+  "version": "0.1.3",
   "scope": "public",
-  "description": "Vertex AI Gemini Model is a series of multimodal generative AI models developed by Google.",
+  "description": "Vertex AI Mistral OCR Model for extracting text from images and PDF documents.",
   "attributes": {
-    "Provider": "Google",
+    "Provider": "Mistral AI",
     "Category": "Model",
-    "Gen AI": "LMM",
+    "Gen AI": "OCR",
     "Deployed By": "Google",
     "Media Type": [
       "Image",
-      "Text"
+      "PDF"
     ]
   },
   "codebase": {
     "type": "git",
     "gitUrl": "https://github.com/dataloop-ai-apps/google-vertex-adapters.git",
-    "gitTag": "0.0.11"
+    "gitTag": "0.1.3"
   },
   "components": {
     "computeConfigs": [
       {
-        "name": "vertex-gemini-15-pro-deploy",
+        "name": "vertex-mistral-ocr-deploy",
         "runtime": {
           "podType": "regular-xs",
           "concurrency": 10,
-          "runnerImage": "gcr.io/viewo-g/piper/agent/runner/apps/google-vertex-adapters:0.1.0",
+          "runnerImage": "gcr.io/viewo-g/piper/agent/runner/apps/google-vertex-adapters:0.1.2",
           "autoscaler": {
             "type": "rabbitmq",
             "minReplicas": 0,
@@ -37,11 +37,11 @@
     ],
     "modules": [
       {
-        "name": "gemini-module",
-        "entryPoint": "adapters/gemini/gemini.py",
-        "computeConfig": "vertex-gemini-15-pro-deploy",
+        "name": "mistral-ocr-module",
+        "entryPoint": "adapters/mistral_ocr/mistral_ocr.py",
+        "computeConfig": "vertex-mistral-ocr-deploy",
         "className": "ModelAdapter",
-        "description": "Vertex AI Gemini Model Adapter",
+        "description": "Vertex AI Mistral OCR Model Adapter",
         "integrations": [
           "dl-gcp-service-account"
         ],
@@ -58,43 +58,38 @@
               {
                 "type": "Item[]",
                 "name": "items",
-                "description": "List of items to run inference on"
+                "description": "List of image/PDF items or prompt items to run OCR on"
               }
             ],
             "output": [
               {
                 "type": "Item[]",
                 "name": "items",
-                "description": "The same input images for prediction."
+                "description": "The same input items for OCR processing."
               },
               {
                 "type": "Annotation[]",
                 "name": "annotations",
-                "description": "The predicted annotations."
+                "description": "The OCR text annotations."
               }
             ],
             "displayName": "Predict Items",
             "displayIcon": "",
-            "description": "Vertex AI Gemini Model predict items"
+            "description": "Vertex AI Mistral OCR Model predict items - supports both direct files and prompt items"
           }
         ]
       }
     ],
     "models": [
       {
-        "name": "vertex-gemini-15-pro",
-        "moduleName": "gemini-module",
+        "name": "vertex-mistral-ocr-2505",
+        "moduleName": "mistral-ocr-module",
         "scope": "project",
         "status": "pre-trained",
         "configuration": {
-          "model_name": "gemini-1.5-pro-001",
-          "system_prompt": "",
-          "max_tokens": 1024,
-          "temperature": 0.2,
-          "top_p": 0.7,
-          "top_k": 40
+          "model_id": "mistral-ocr-2505"
         },
-        "description": "Gemini is a series of multimodal generative AI models developed by Google."
+        "description": "Mistral OCR model for extracting text from images and PDF documents. Supports both direct file input and prompt-based input."
       }
     ]
   }

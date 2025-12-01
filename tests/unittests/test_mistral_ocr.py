@@ -1,5 +1,5 @@
 import dtlpy as dl
-from adapters.gemini.gemini import ModelAdapter
+from adapters.mistral_ocr.mistral_ocr import ModelAdapter
 
 
 def prd():
