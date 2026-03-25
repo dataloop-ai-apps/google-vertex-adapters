@@ -115,7 +115,7 @@ class ModelAdapter(dl.BaseModelAdapter):
                 return None
                     
         except Exception as e:
-            logger.error(f"Error processing prompt item {prompt_name}: {str(e)}")
+            logger.error(f"Error processing prompt item {prompt_name}: {type(e).__name__}")
             return None
 
     def _call_claude_api_with_messages(self, messages, prompt_name):
@@ -140,7 +140,7 @@ class ModelAdapter(dl.BaseModelAdapter):
                 return None
                 
         except Exception as e:
-            logger.error(f"Error calling Claude API for prompt {prompt_name}: {str(e)}")
+            logger.error(f"Error calling Claude API for prompt {prompt_name}: {type(e).__name__}")
             return None
 
     def predict(self, batch, **kwargs):
