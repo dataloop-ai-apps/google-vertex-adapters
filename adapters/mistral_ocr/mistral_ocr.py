@@ -87,7 +87,7 @@ class ModelAdapter(dl.BaseModelAdapter):
             return self._call_mistral_ocr_api(data_url, item.id)
             
         except Exception as e:
-            logger.error(f"Error processing file item {item.id}: {str(e)}")
+            logger.error(f"Error processing file item {item.id}: {type(e).__name__}")
             return None
 
     def _process_prompt_item(self, prompt_item, prompt_name):
@@ -127,7 +127,7 @@ class ModelAdapter(dl.BaseModelAdapter):
             return None
             
         except Exception as e:
-            logger.error(f"Error processing prompt item {prompt_name}: {str(e)}")
+            logger.error(f"Error processing prompt item {prompt_name}: {type(e).__name__}")
             return None
 
     def _call_mistral_ocr_api(self, data_url, item_id):
@@ -165,17 +165,15 @@ class ModelAdapter(dl.BaseModelAdapter):
                     
                     return ocr_text.strip() if ocr_text.strip() else None
                     
-                except json.JSONDecodeError as e:
-                    logger.error(f"Error decoding JSON response for item {item_id}: {e}")
-                    logger.error(f"Raw response: {response.text}")
+                except json.JSONDecodeError:
+                    logger.error(f"Error decoding JSON response for item {item_id}")
                     return None
             else:
                 logger.error(f"OCR request failed for item {item_id} with status code: {response.status_code}")
-                logger.error(f"Response text: {response.text}")
                 return None
                 
         except Exception as e:
-            logger.error(f"Error calling Mistral OCR API for item {item_id}: {str(e)}")
+            logger.error(f"Error calling Mistral OCR API for item {item_id}: {type(e).__name__}")
             return None
 
     def predict(self, batch, **kwargs):
