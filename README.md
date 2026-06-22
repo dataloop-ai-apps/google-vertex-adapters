@@ -1,6 +1,6 @@
 # Vertex AI Model Adapters
 
-Welcome to the repository for Dataloop model adapters that utilize Google Vertex AI models. Follow the instructions below to set up and use these adapters effectively.
+Welcome to the repository for DDOE model adapters that utilize Google Vertex AI models. Follow the instructions below to set up and use these adapters effectively.
 
 For more information on Vertex AI models, refer to the [official documentation](https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models).
 
@@ -25,9 +25,9 @@ To use these models, you need a Google Cloud Platform (GCP) project. Follow thes
 ### 3. Assign Permissions
    - Grant the service account the `aiplatform.endpoints.predict` permission.
 
-## Integrating Google Vertex AI with Dataloop Platform
+## Integrating Google Vertex AI with DDOE Platform
 
-   - Visit the [Dataloop Marketplace](https://docs.dataloop.ai/docs/marketplace), under Models tab.
+   - Visit the [DDOE Marketplace](https://docs.dataloop.ai/docs/marketplace), under Models tab.
 ![Marketplace](assets/marketplace.png)
    - Select the model and click on "Install" and then "Proceed".
 ![Add Integration](assets/add_integration.png)
@@ -59,7 +59,7 @@ To use these models, you need a Google Cloud Platform (GCP) project. Follow thes
 - **Documents**: PDF files (single or multi-page)
 
 #### Output
-**For Prompt Items (Recommended)**: The model returns OCR results as text annotations containing the extracted text from your images or PDF documents. This format enables proper text analysis, search, and integration with Dataloop's annotation workflows.
+**For Prompt Items (Recommended)**: The model returns OCR results as text annotations containing the extracted text from your images or PDF documents. This format enables proper text analysis, search, and integration with DDOE's annotation workflows.
 
 **For Direct File Input**: The extracted text is stored in the item description field. While functional, this approach limits analysis capabilities and is not recommended for production workflows.
 
@@ -69,7 +69,7 @@ For multi-page PDFs, text from all pages is extracted and combined regardless of
 
 - **Expected Workflow**: This model works **exclusively with Prompt Items** for advanced multimodal AI conversations and analysis. The model excels at understanding complex instructions, analyzing images, and providing detailed responses.
 
-- **Prompt Items Only**: Claude 4 Opus only accepts prompt items containing text and/or image references. Direct file input is not supported. This ensures optimal integration with Dataloop's annotation workflows and enables proper conversation tracking.
+- **Prompt Items Only**: Claude 4 Opus only accepts prompt items containing text and/or image references. Direct file input is not supported. This ensures optimal integration with DDOE's annotation workflows and enables proper conversation tracking.
 
 - Configuration parameters:
   - **"model_id"**: Claude 4 Opus model identifier (default: "claude-opus-4@20250514")
@@ -95,7 +95,7 @@ Claude 4 Opus is available in the `us-east5` region by default. Ensure your GCP 
 
 ### Attributions
 
-This application, developed by Dataloop, provides adapters for AI models via Google Vertex AI. While the code in this repository is open-sourced under the Apache License 2.0, the use of Google Vertex AI and the respective AI models is subject to the providers' licensing terms, including but not limited to:
+This application, developed by DDOE, provides adapters for AI models via Google Vertex AI. While the code in this repository is open-sourced under the Apache License 2.0, the use of Google Vertex AI and the respective AI models is subject to the providers' licensing terms, including but not limited to:
 
 - [Google Cloud Platform Terms of Service](https://cloud.google.com/terms)
 - [Vertex AI Terms of Service](https://cloud.google.com/terms/service-terms#vertex_ai_models)
@@ -107,9 +107,9 @@ This application, developed by Dataloop, provides adapters for AI models via Goo
 By using this application with Google Vertex AI and the respective AI models, you acknowledge that:
 1. You have reviewed and agreed to Google's and the AI providers' licensing terms for the use of their respective services.
 2. You are solely responsible for ensuring compliance with these terms when using Google Vertex AI and the AI models.
-3. The authors of this application, Dataloop, are not responsible for any compliance issues, fees, or damages arising from the use of Google Vertex AI or the AI models.
+3. The authors of this application, DDOE, are not responsible for any compliance issues, fees, or damages arising from the use of Google Vertex AI or the AI models.
 
-This application is provided "as is" under the terms of the Apache License 2.0. Dataloop makes no warranties or guarantees regarding the performance, functionality, or legal compliance of these adapters when used with Google Vertex AI or the AI models.
+This application is provided "as is" under the terms of the Apache License 2.0. DDOE makes no warranties or guarantees regarding the performance, functionality, or legal compliance of these adapters when used with Google Vertex AI or the AI models.
 
 ### Additional Resources
 
@@ -118,4 +118,4 @@ For more information about the models and services, please visit the official do
 - [Mistral AI](https://mistral.ai/)
 - [Anthropic Claude](https://www.anthropic.com/)
 
-For additional assistance or inquiries, please refer to the Dataloop documentation or contact support.
+For additional assistance or inquiries, please refer to the DDOE documentation or contact support.
