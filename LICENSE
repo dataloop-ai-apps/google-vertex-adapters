@@ -202,7 +202,7 @@
 
 ### Additional Notice Regarding Google Vertex AI Integration
 
-This repository contains code for an adapter developed by Dataloop that interacts with Google Vertex AI Generative AI models. The use of Google Vertex AI models is governed by Google's licensing terms and agreements. 
+This repository contains code for an adapter developed by DDOE that interacts with Google Vertex AI Generative AI models. The use of Google Vertex AI models is governed by Google's licensing terms and agreements. 
 Users are responsible for complying with these terms, including:
 
 - [Google Cloud Platform Terms of Service](https://cloud.google.com/terms)

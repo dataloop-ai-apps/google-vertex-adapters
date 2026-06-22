@@ -28,7 +28,7 @@ class ModelAdapter(dl.BaseModelAdapter):
         except Exception:
             raise ValueError("Unable to decode the service account JSON. "
                              "Please refer to the following guide for proper usage of GCP service accounts with "
-                             "Dataloop: https://github.com/dataloop-ai-apps/google-vertex-adapters/blob/main/README.md")
+                             "DDOE: https://github.com/dataloop-ai-apps/google-vertex-adapters/blob/main/README.md")
         
         self.project_id = credentials.get('project_id', None)
         self.region = credentials.get('location', 'us-east5')  # Default region for Claude
